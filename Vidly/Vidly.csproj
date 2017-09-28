@@ -253,6 +253,14 @@
     <Compile Include="Migrations\201709271810459_AddChangesToGenreInCustomer.Designer.cs">
       <DependentUpon>201709271810459_AddChangesToGenreInCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709272227004_MovieEditOptions.cs" />
+    <Compile Include="Migrations\201709272227004_MovieEditOptions.Designer.cs">
+      <DependentUpon>201709272227004_MovieEditOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709280133274_AddValidationOnClientSide.cs" />
+    <Compile Include="Migrations\201709280133274_AddValidationOnClientSide.Designer.cs">
+      <DependentUpon>201709280133274_AddValidationOnClientSide.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -260,9 +268,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModels\MovieFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-lumen.css" />
@@ -328,6 +339,8 @@
     <Content Include="Views\Movies\Random.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Customers\CustomerForm.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -378,6 +391,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709271810459_AddChangesToGenreInCustomer.resx">
       <DependentUpon>201709271810459_AddChangesToGenreInCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709272227004_MovieEditOptions.resx">
+      <DependentUpon>201709272227004_MovieEditOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709280133274_AddValidationOnClientSide.resx">
+      <DependentUpon>201709280133274_AddValidationOnClientSide.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Vidly.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -21,6 +23,18 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
+        //Add a Movie
+        public ActionResult New()
+        {
+            var genres = _context.Genres.ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = new Movie(),
+                Genres = genres
+            };
+            return View("MovieForm",viewModel);
+        }
+
         //GET: movies/Details/id
         public ActionResult Details(int id)
         {
@@ -35,7 +49,17 @@ namespace Vidly.Controllers
         //GET: movies/Edit/id
         public ActionResult Edit(int id)
         {
-            return Content("id = " + id);
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+            var viewModel = new MovieFormViewModel(movie)
+            {
+                Movie = movie,
+                Genres = _context.Genres.ToList()
+            };
+
+            return View("MovieForm", viewModel);
         }
 
         //GET: movies
@@ -51,6 +75,29 @@ namespace Vidly.Controllers
         public ActionResult ByReleaseDate(int year, byte month)
         {
             return Content(year + "/" + month);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Movie movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Now;
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
         }
     }
 }

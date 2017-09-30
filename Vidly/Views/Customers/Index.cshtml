@@ -16,8 +16,6 @@ else
         <tr>
             <th>Customer</th>
             <th>Membership Type</th>
-            <th>Discount Rate</th>
-            <th>News Letter Subscription</th>
             <th>Delete</th>
         </tr>
         </thead>
@@ -27,8 +25,6 @@ else
                 <tr align="center">
                     <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
                     <td>@customer.MembershipType.Type</td>
-                    <td>@customer.MembershipType.DiscountRate%</td>
-                    <td>@customer.IsSubscribedToNewsletter</td>
                     <td>
                         <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
                     </td>
@@ -41,8 +37,10 @@ else
 @section Scripts
 {
     <script>
-        $(document).ready(function() {
-            $("#customers .js-delete").on("click",
+        $(document).ready(function () {
+            $("#customers").DataTable();
+
+            $("#customers").on("click", ".js-delete",
                 function () {
                     var button = $(this);
 

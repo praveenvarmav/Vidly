@@ -21,15 +21,15 @@
 @section Scripts
 {
     <script>
-       var table = $(document).ready(function () {
-            $("#customers").DataTable({
+       $(document).ready(function () { 
+            var table= $("#customers").DataTable({
                 ajax: {
                     url: "/api/customers",
                     dataSrc: ""
                 },
                 columns: [
                     {
-                        data: "name",
+                        data: "Name",
                         render: function(data, type, customer) {
                             return "<a href='/customers/edit/" + customer.Id + "'>" +
                                 customer.Name + "</a>";
@@ -39,7 +39,7 @@
                         data: "MembershipType.Type"
                     },
                     {
-                        data: "id",
+                        data: "Id",
                         render: function(data) {
                             return "<button class='btn-link js-delete' data-customer-id=" + data +
                                 ">Delete</button>";
@@ -59,7 +59,7 @@
                                     url: "/api/customers/" + button.attr("data-customer-id"),
                                     method: "DELETE",
                                     success: function () {
-                                        table.row(button.parents("tr").remove()).draw();
+                                        table.row(button.parents("tr")).remove().draw();
                                     }
                                 });
                             }

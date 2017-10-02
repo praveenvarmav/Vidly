@@ -65,17 +65,8 @@ namespace Vidly.Controllers
         //GET: movies
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-
-            return View(movies);
-;        }
-
-        [Route("movies/released/{year:regex(\\d{4}):range( 2012, 2017)}/{month:regex(\\d{2}):range( 1, 12)}")]
-        //GET: movies/ByReleaseDate
-        public ActionResult ByReleaseDate(int year, byte month)
-        {
-            return Content(year + "/" + month);
-        }
+            return View();
+;       }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -94,7 +85,17 @@ namespace Vidly.Controllers
             if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(movie);
             }
+            else
+            {
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Movies");
